@@ -1,12 +1,16 @@
 const dployTrigger = () => {
-    console.log('dploy trigger initialised')
     const dployBtn = document.getElementById('dploy-button');
+    const dployMsg = document.getElementById('dploy-msg');
 
     dployBtn.addEventListener('click', (e) => {
 
         e.preventDefault;
-
-        console.log(dployBtn.getAttribute('data-address'))
+        dployBtn.classList.add('hide');
+        dployMsg.classList.remove('destroyed')
+        setTimeout(() => {
+            dployMsg.classList.remove('hide')
+            dployBtn.classList.add('destroyed');
+        }, 350)
 
         fetch(dployBtn.getAttribute('data-address'))
 

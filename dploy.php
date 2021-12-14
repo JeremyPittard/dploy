@@ -18,7 +18,11 @@ function jp_dashboard_add_widgets() {
 function jp_dashboard_dploy_handler() {
 	$options = wp_parse_args( get_option( 'jp_dashboard_dploy' ), jp_dashboard_dploy_config_defaults() );
     ?> 
-    <button id="dploy-button" type="button" data-address="<?php echo $options["address"] ?>">Click to build changes</button>
+	<div>
+		<button id="dploy-button" class="dploy-button" type="button" data-address="<?php echo $options["address"] ?>">Click to build changes</button>
+		<h3 id="dploy-msg" class="dploy-msg hide destroyed">Your changes are now building, check your website in a few minutes</h3>
+
+	</div>
     <?php
 }
 
@@ -40,11 +44,11 @@ function jp_dashboard_dploy_config_handler() {
 	}
 
     ?>
-	<p>
+	<div class="dploy-config">
 		<label><?php _e( 'address:', 'jp' ); ?>
 			<input type="text" name="dploy_address" value="<?php echo esc_attr( $options['address'] ); ?>" />
 		</label>
-	</p>
+	</div>
 	<?php
 }
 
@@ -52,7 +56,7 @@ add_action( 'admin_enqueue_scripts', 'jp_scripts' );
 function jp_scripts( $hook ) {
 	$screen = get_current_screen();
 	if ( 'dashboard' === $screen->id ) {
-		wp_enqueue_script( 'jp_script', plugin_dir_url( __FILE__ ) . '/assets/scripts.js', array(), '1.0', true );
-		// wp_enqueue_style( 'jp_style', plugin_dir_url( __FILE__ ) . 'path/to/style.css', array(), '1.0' );
+		wp_enqueue_script( 'jp_script', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.0', true );
+		wp_enqueue_style( 'jp_style', plugin_dir_url( __FILE__ ) . 'assets/styles.css', array() );
 	}
 }
